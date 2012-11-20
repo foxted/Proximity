@@ -179,7 +179,7 @@
 	};
 	$.fn.proximity = function(opts) 
 	{ 
-		$(this).each(function(){
+		$(this).find('li').each(function(){
 			$(this).hover(function(){
 				$(this).apply(opts);
 			}, function(){
