@@ -8,12 +8,15 @@
 	<script type="text/javascript" src="js/jquery.proximity.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$('#proximity li').proximity(10);
+			$('#proximity li').proximity({debug: false});
 		});
 	</script>
 </head>
 <body>
 	<ul id="proximity">
+		<li>
+			<p>0</p>
+		</li>
 		<li>
 			<p>1</p>
 		</li>
@@ -44,7 +47,7 @@
 		<li>
 			<p>10</p>
 		</li>
-		<!--<li>
+		<li>
 			<p>11</p>
 		</li>
 		<li>
@@ -131,8 +134,5 @@
 		<li>
 			<p>39</p>
 		</li>
-		<li>
-			<p>40</p>
-		</li>-->
 </body>
 </html>
