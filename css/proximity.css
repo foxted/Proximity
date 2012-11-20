@@ -1,0 +1,43 @@
+html, body{
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+#proximity{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+}
+#proximity li{
+	width: 9.85%;
+	height: 25%;
+	margin: 0;
+	padding: 0;
+	display: inline-block;
+	float: left;
+	background-color: #999999;
+	border: 1px solid #333;
+	position: relative;
+}
+#proximity li p{
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	vertical-align: middle;
+	text-align: center;
+	font-size: 3em;
+	display:block;
+	position:absolute;
+	top: 50%;
+	height: 9px;
+	margin-top: -0.6em;
+}
+#proximity li.current{
+	background-color: #FF0000;
+}
+#proximity li.topLeft, #proximity li.topCenter, #proximity li.topRight, #proximity li.left, #proximity li.right, #proximity li.bottomLeft, #proximity li.bottomCenter, #proximity li.bottomRight{
+	background-color: #FF7788;
+}
