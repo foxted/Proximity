@@ -1,6 +1,7 @@
 (function($) {
 	var params = {
-		debug : false
+		debug : false,
+		modulo : 1
 	};
 	
 	/*
@@ -54,7 +55,7 @@
 		var boxes = $('li'); // Get boxes
 		var nbElements = boxes.length; // Get number of boxes
 		var i = $('li:eq('+index+')'); // Current element
-		var modulo = this.moduloxGenerator(i); // Get modulo value
+		if(!opts.modulo) opts.modulo = this.moduloxGenerator(i); // Get modulo value
 		this.initialize(opts); // Initialize parameters
 		
 		// Initialize around boxes variables
@@ -63,25 +64,27 @@
 		/*
 			Set positions
 		*/
-		topLeft = (index-modulo)-1;
-		topCenter = (index-modulo);
-		topRight = (index-modulo)+1;
+		topLeft = (index-this.params.modulo)-1;
+		topCenter = (index-this.params.modulo);
+		topRight = (index-this.params.modulo)+1;
 		left = index-1;
 		right = index+1;
-		bottomLeft = (index+modulo)-1;
-		bottomCenter = (index+modulo);
-		bottomRight = (index+modulo)+1;
+		bottomLeft = (index+this.params.modulo)-1;
+		bottomCenter = (index+this.params.modulo);
+		bottomRight = (index+this.params.modulo)+1;
 		
-		position = this.modulox(index+1, modulo); // 1 if total left / 0 if total right
+		position = this.modulox(index+1, this.params.modulo); // 1 if total left / 0 if total right
 		
 		/*
 			Debug
 		*/
 		if(this.params.debug)
 		{
+			console.log("Parent Width = "+i.parent().width());
+			console.log("Element Width = "+i.width());
 			console.log('Index + 1 = '+(index+1));
-			console.log('Modulo = '+modulo);
-			console.log('Division = '+(index+1/modulo));
+			console.log('Modulo = '+this.params.modulo);
+			console.log('Division = '+(index+1/this.params.modulo));
 			console.log('Position = '+position);
 		}
 		
