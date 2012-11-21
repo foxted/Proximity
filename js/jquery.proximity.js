@@ -1,7 +1,7 @@
 (function($) {
 	var params = {
-		debug : false,
-		modulo : 1
+		debug: false,
+		modulo: 1
 	};
 	
 	/*
@@ -51,12 +51,21 @@
 		/*
 			Get all boxes
 		*/
+		
 		index = $(this).index(); // Get index
 		var boxes = $('li'); // Get boxes
 		var nbElements = boxes.length; // Get number of boxes
 		var i = $('li:eq('+index+')'); // Current element
-		if(!opts.modulo) opts.modulo = this.moduloxGenerator(i); // Get modulo value
-		this.initialize(opts); // Initialize parameters
+		if(typeof(opts)=='undefined')
+		{
+			opts = {
+				modulo: this.moduloxGenerator(i)
+			}
+		}
+		if(typeof(opts.modulo) == 'undefined'){
+			opts.modulo = this.moduloxGenerator(i)
+		}
+		this.params = $.extend(this.params, opts); // Initialize parameters
 		
 		// Initialize around boxes variables
 		var topLeft, topCenter, topRight, left, right, bottomLeft, bottomCenter, bottomRight;
@@ -190,8 +199,4 @@
 			});
 		});
 	};
-	$.fn.initialize = function(opts)
-	{
-		this.params = $.extend(this.params, opts);
-	}
 })(jQuery);
