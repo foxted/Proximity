@@ -62,7 +62,7 @@
 				modulo: this.moduloxGenerator(i)
 			}
 		}
-		if(typeof(opts.modulo) == 'undefined'){
+		else{
 			opts.modulo = this.moduloxGenerator(i)
 		}
 		this.params = $.extend(this.params, opts); // Initialize parameters
