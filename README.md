@@ -1,6 +1,4 @@
-# Proximity.js
-
-![Proximity icon](https://www.google.fr/logos/2012/childrensday-2012-hp.jpg)
+![Proximity icon](http://www.valentinprugnaud.fr/wp-content/uploads/2013/01/Proximity.jpg)
 
 ## What is Proximity.js ?
 
