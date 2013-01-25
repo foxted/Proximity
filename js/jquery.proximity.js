@@ -1,9 +1,47 @@
 (function($) {
 	var params = {
 		debug: false,
-		modulo: 1
+		modulo: 1,
+		responsive: false,
+		overflow: false
 	};
-	
+	$.fn.elementExtra = function(element){
+		/*
+			Element width
+		*/
+		var elementWidth = parseInt(element.css('width').match(/\d+\.?\d*/g));
+		
+		/*
+			Border width
+		*/
+		var elementBorderRightWidth = parseInt(element.css('border-right-width').match(/\d+\.?\d*/g));
+		var elementBorderLeftWidth = parseInt(element.css('border-left-width').match(/\d+\.?\d*/g));
+		var elementBorderWidth = elementBorderLeftWidth + elementBorderRightWidth;
+		
+		/*
+			Margin width
+		*/
+		var elementMarginRightWidth = parseInt(element.css('margin-right').match(/\d+\.?\d*/g));
+		var elementMarginLeftWidth = parseInt(element.css('margin-left').match(/\d+\.?\d*/g));
+		var elementMarginWidth = elementMarginLeftWidth + elementMarginRightWidth;
+		/*
+			Padding width
+		*/
+		var elementPaddingRightWidth = parseInt(element.css('padding-right').match(/\d+\.?\d*/g));
+		var elementPaddingLeftWidth = parseInt(element.css('padding-left').match(/\d+\.?\d*/g));
+		var elementPaddingWidth = elementPaddingLeftWidth + elementPaddingRightWidth;
+		
+		/*
+			Final element width
+		*/
+		var elementExtraWidth = elementBorderWidth + elementMarginWidth + elementPaddingWidth;
+		
+		/*
+			Return final element width
+		*/		
+		return elementExtraWidth;
+
+	}
 	/*
 		Return the position of an element
 		
@@ -11,9 +49,7 @@
 		@param int Elements number
 	*/
 	$.fn.modulox = function(index, modulo) {
-		var modResult;
-		modResult = index % modulo;
-		return Math.round(modResult);
+		return Math.abs(index % modulo);
 	};
 	/*
 		Return the ratio
@@ -21,22 +57,38 @@
 		@param element Current element
 	*/
 	$.fn.moduloxGenerator = function(element){
-		var windowSize = $(window).width();
+		/*
+			Element & Parent width
+		*/
+		var elementWidth = parseInt(element.css('width').match(/\d+\.?\d*/g));
+		var elementExtraWidth = this.elementExtra(element);
+		var elementOverflowWidth = elementWidth + elementExtraWidth;
+		console.log('Element Width '+elementWidth);
+		console.log('Element extra '+elementExtraWidth);
+		console.log('Overflow '+elementOverflowWidth);
+		var parentWidth = parseInt(element.parent().css('width').match(/\d+\.?\d*/g));
 		
-		var parentWidth = element.parent().css('width');
-		var elementWidth = element.css('width');
+		/*
+			Calculates ratio
+		*/
+		var ratio = Math.round((elementOverflowWidth / parentWidth)*100);
 		
-		var parentSize = parseInt(parentWidth.match(/\d+\.?\d*/g));
-		var elementBorderSize = parseInt(element.css('border-width').match(/\d+\.?\d*/g)*2);
-		var elementSize = parseInt(elementWidth.match(/\d+\.?\d*/g));
-		
-		elementSize = parseInt(elementSize+(elementBorderSize*2));
-		
-		elementSize += elementBorderSize;
-		
-		var ratio = Math.floor(parentSize/elementSize);
-		
-		return ratio;
+		/*
+			Check ratio
+		*/
+		if(elementExtraWidth > 0)
+		{
+			ratio = parentWidth / elementOverflowWidth;
+			if(this.params.responsive && !this.params.overflow) {
+				ratio = ratio - 1;
+			}
+		}
+		else{
+			ratio = parentWidth / elementWidth;
+		}
+		console.log("Extra width : "+elementExtraWidth);
+		console.log("Ratio : "+ Math.round(ratio));
+		return Math.round(ratio);
 	};
 	/*
 		Apply hover classes
@@ -56,16 +108,18 @@
 		var boxes = $('li'); // Get boxes
 		var nbElements = boxes.length; // Get number of boxes
 		var i = $('li:eq('+index+')'); // Current element
+		/*
+			Get modulo
+		*/
 		if(typeof(opts)=='undefined')
 		{
 			opts = {
-				modulo: this.moduloxGenerator(i)
+				modulo: 0,
+				debug: false
 			}
 		}
-		else{
-			opts.modulo = this.moduloxGenerator(i)
-		}
 		this.params = $.extend(this.params, opts); // Initialize parameters
+		if(this.params.modulo != 0) this.params.modulo = this.moduloxGenerator(i);
 		
 		// Initialize around boxes variables
 		var topLeft, topCenter, topRight, left, right, bottomLeft, bottomCenter, bottomRight;
@@ -89,12 +143,17 @@
 		*/
 		if(this.params.debug)
 		{
-			console.log("Parent Width = "+i.parent().width());
-			console.log("Element Width = "+i.width());
-			console.log('Index + 1 = '+(index+1));
-			console.log('Modulo = '+this.params.modulo);
-			console.log('Division = '+(index+1/this.params.modulo));
-			console.log('Position = '+position);
+			console.log("##########################################");
+			console.log("INDEX = "+index);
+			console.log("PARENT = "+i.parent().width());
+			var elementSize = parseInt(i.css('width').match(/\d+\.?\d*/g));
+			var elementExtra = this.elementExtra(i);
+			var elementWidth = elementSize + elementExtra;
+			console.log("ELEMENT WIDTH = " + elementWidth);
+			console.log('DIVISION = '+i.parent().width()/this.elementExtra(i));
+			console.log("MODULO = "+this.params.modulo);
+			console.log('POSITION = '+position);
+			console.log("##########################################");
 		}
 		
 		/*
