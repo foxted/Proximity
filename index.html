@@ -18,8 +18,8 @@
         <header class="inner">
           <a id="forkme_banner" href="https://github.com/titoo87/Proximity">View on GitHub</a>
 
-          <h1 id="project_title">Proximity</h1>
-          <h2 id="project_tagline">Proximity | Boxes fooling around</h2>
+          <h1 id="project_title">Proximity.js</h1>
+          <h2 id="project_tagline">«Boxes fooling around»</h2>
 
             <section id="downloads">
               <a class="zip_download_link" href="https://github.com/titoo87/Proximity/zipball/master">Download this project as a .zip file</a>
@@ -31,44 +31,143 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+        <h3><a name="what" class="anchor" href="#what"><span class="octicon octicon-link"></span></a>What is Proximity.js ?</h3>
+        <p><strong>Proximity.js</strong> is a new <em>jQuery Plugin</em> that allows you to create a nice <em>grid</em> effect.</p>
+        <img src="http://www.valentinprugnaud.fr/wp-content/uploads/2013/01/Proximity.jpg" title="Proximity.js" alt="Proximity logo" />
+        <h3><a name="how-to" class="anchor" href="#how-to"><span class="octicon octicon-link"></span></a>How to use Proximity</h3>
+          <h4><a name="list" class="anchor" href="#list"><span class="octicon octicon-link"></span></a>Create a HTML list</h4>
+          <p>Create your web page, with a <code>&lt;ul&gt;</code> list in it, like this :</p>
+<pre><code>&lt;ul id="proximity"&gt;
+    &lt;li&gt;
+        &lt;p&gt;1&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;p&gt;2&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;p&gt;...&lt;/p&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<p>Your CSS <strong>must</strong> transform you list into a grid. Here is an example :</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
+<pre><code>html, body{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  #proximity{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+  }
+  #proximity li{
+    width: 9.85%;
+    height: 25%;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    float: left;
+    background-color: #999999;
+    border: 1px solid #333;
+    position: relative;
+  }
+  #proximity li p{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 3em;
+    display:block;
+    position:absolute;
+    top: 50%;
+    height: 9px;
+    margin-top: -0.6em;
+  }
 </code></pre>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<h3><a name="behavior" class="anchor" href="#behavior"><span class="octicon octicon-link"></span></a></h3>
 
-<h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+<p>You must create different states for your boxes. Here is the list of states available :</p>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<table width="100%">
+  <thead>
+    <tr>
+      <th>State</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><em>current</em></td>
+      <td>Current is the state for the <em>current</em> box</td>
+    </tr>
+    <tr>
+      <td><em>topLeft</em></td>
+      <td>The box directly on the <strong>top left corner</strong> of the <em>current</em> box</td>
+    </tr>
+    <tr>
+      <td><em>topCenter</em></td>
+      <td>The box directly <strong>above</strong> the <em>current</em> box</td>
+    </tr>
+    <tr>
+      <td><em>topRight</em></td>
+      <td>The box directly on the <strong>top right corner</strong> of the <em>current</em> box</td>
+    </tr>
+    <tr>
+      <td><em>bottomLeft</em></td>
+      <td>The box directly on the <strong>bottom left corner</strong> of the <em>current</em> box</td>
+    </tr>
+    <tr>
+      <td><em>bottomCenter</em></td>
+      <td>The box directly <strong>below</strong> the <em>current</em> box</td>
+    </tr>
+    <tr>
+      <td><em>bottomRight</em></td>
+      <td>The box directly on the <strong>bottom right corner</strong> of the <em>current</em> box</td>
+    </tr>
+    <tr>
+      <td><em>left</em></td>
+      <td>Left box beside the <em>current</em> box</td>
+    </tr>
+    <tr>
+      <td><em>right</em></td>
+      <td>Right box beside the <em>current</em> box</td>
+    </tr>
+  </tbody>
+</table>
 
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+<h3><a name="initialization" class="anchor" href="#initialization"><span class="octicon octicon-link"></span></a>Initialization</h3>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<p>Include jQuery & Proximity.js into your webpage :</p>
 
+<pre><code>&lt;script type="text/javascript" src="js/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/jquery.proximity.js"&gt;&lt;/script&gt;
+</code></pre>
+
+<p>Finally, initialize the grid :</p>
+<pre><code>&lt;script type="text/javascript"&gt;
+    $(document).ready(function(){
+        $('#proximity li').proximity(10);
+    });
+&lt;/script&gt;</code></pre>
+<p>And that's it !</p>
 <h3>
 <a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+<p>Idea by <a href="https://github.com/titoo87" class="user-mention">@titoo87</a> & <a href="https://github.com/regulardesigner" class="user-mention">@regulardesigner</a>. See a real-life example <a href="http://ecard-bs-2013.agencebackflip.net/" title="Business Solutions">here</a>.</p>
+<p>Project is no longer maintained. Feel free to fork it and use it whatever you want, just don't forget to show us your work !</p>
       </section>
     </div>
 
     <!-- FOOTER  -->
     <div id="footer_wrap" class="outer">
       <footer class="inner">
-        <p class="copyright">Proximity maintained by <a href="https://github.com/titoo87">titoo87</a></p>
+        <p class="copyright">Proximity created by <a href="https://github.com/titoo87">@titoo87</a> & <a href="https://github.com/regulardesigner" class="user-mention">@regulardesigner</a></p>
         <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
       </footer>
     </div>
