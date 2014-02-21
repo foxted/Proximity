@@ -1,4 +1,4 @@
-![Proximity icon](http://www.valentinprugnaud.fr/wp-content/uploads/2013/01/Proximity.jpg)
+![Proximity icon](http://foxted.github.io/Proximity/images/logo.jpg)
 
 ## What is Proximity.js ?
 
